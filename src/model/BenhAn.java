@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Lớp trừu tượng đại diện cho một Bệnh án.
- */
 public abstract class BenhAn {
     private int soThuTu;
     private String maBenhAn;
@@ -16,7 +13,7 @@ public abstract class BenhAn {
     }
 
     public BenhAn(int soThuTu, String maBenhAn, String maBenhNhan, String tenBenhNhan,
-                  String ngayNhapVien, String ngayRaVien, String lyDoNhapVien) {
+            String ngayNhapVien, String ngayRaVien, String lyDoNhapVien) {
         this.soThuTu = soThuTu;
         this.maBenhAn = maBenhAn;
         this.maBenhNhan = maBenhNhan;
@@ -82,26 +79,16 @@ public abstract class BenhAn {
         this.lyDoNhapVien = lyDoNhapVien;
     }
 
-    /**
-     * Chuyển đổi thông tin bệnh án thành dòng CSV.
-     */
     public abstract String toCsvString();
 
-    /**
-     * Lấy tên loại bệnh án (Thường hoặc VIP).
-     */
     public abstract String getLoaiBenhAn();
 
-    /**
-     * Lấy thông tin riêng biệt của từng loại bệnh án.
-     */
     public abstract String getThongTinRieng();
 
     @Override
     public String toString() {
         return String.format(
-            "STT: %d | Mã BA: %-8s | Mã BN: %-8s | Tên BN: %-18s | Nhập: %s | Ra: %s | Lý do: %-15s | %s",
-            soThuTu, maBenhAn, maBenhNhan, tenBenhNhan, ngayNhapVien, ngayRaVien, lyDoNhapVien, getThongTinRieng()
-        );
+                "STT: %d | Mã BA: %-8s | Mã BN: %-8s | Tên BN: %-18s | Nhập: %s | Ra: %s | Lý do: %-15s | %s",
+                soThuTu, maBenhAn, maBenhNhan, tenBenhNhan, ngayNhapVien, ngayRaVien, lyDoNhapVien, getThongTinRieng());
     }
 }

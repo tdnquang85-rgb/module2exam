@@ -11,9 +11,6 @@ import util.Validator;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Lớp hiển thị giao diện console thuần văn bản và nhận dữ liệu từ người dùng.
- */
 public class BenhAnView {
     private final Scanner scanner;
 
@@ -21,9 +18,6 @@ public class BenhAnView {
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Hiển thị menu chính chính xác theo yêu cầu.
-     */
     public void displayMainMenu() {
         System.out.println("1.\tThêm mới");
         System.out.println("2.\tXoá");
@@ -36,9 +30,6 @@ public class BenhAnView {
         return scanner.nextLine().trim();
     }
 
-    /**
-     * Nhận lựa chọn chức năng chính.
-     */
     public int getChoice() {
         while (true) {
             try {
@@ -50,9 +41,6 @@ public class BenhAnView {
         }
     }
 
-    /**
-     * Giao diện thêm mới bệnh án.
-     */
     public BenhAn inputBenhAn(IBenhAnService service) {
         System.out.println("\n--- CHỌN LOẠI BỆNH ÁN CẦN THÊM MỚI ---");
         System.out.println("1.\tBệnh án thường");
@@ -80,11 +68,9 @@ public class BenhAnView {
 
         System.out.println("\n--- NHẬP THÔNG TIN BỆNH ÁN ---");
 
-        // 1. Số thứ tự: Tự động tăng
         int soThuTu = service.getNextSoThuTu();
         System.out.println("Số thứ tự bệnh án (tự động): " + soThuTu);
 
-        // 2. Mã bệnh án: Gợi ý theo quy tắc BA-số thứ tự, validate regex và kiểm tra trùng lặp
         String suggestedMaBA = service.generateSuggestedMaBenhAn();
         String maBenhAn;
         while (true) {
@@ -95,7 +81,8 @@ public class BenhAnView {
             }
 
             if (!Validator.isValidMaBenhAn(input)) {
-                System.out.println("Mã bệnh án không đúng định dạng (phải bắt đầu bằng 'BA-' và theo sau là số, ví dụ: " + suggestedMaBA + "). Vui lòng nhập lại!");
+                System.out.println("Mã bệnh án không đúng định dạng (phải bắt đầu bằng 'BA-' và theo sau là số, ví dụ: "
+                        + suggestedMaBA + "). Vui lòng nhập lại!");
                 continue;
             }
 
@@ -108,25 +95,26 @@ public class BenhAnView {
             }
         }
 
-        // 3. Mã bệnh nhân: Gợi ý theo quy tắc BN-số thứ tự, validate regex
         String suggestedMaBN = service.generateSuggestedMaBenhNhan();
         String maBenhNhan;
         while (true) {
-            System.out.printf("Nhập mã bệnh nhân (nhấn Enter để dùng '%s' hoặc nhập định dạng BN-xxx): ", suggestedMaBN);
+            System.out.printf("Nhập mã bệnh nhân (nhấn Enter để dùng '%s' hoặc nhập định dạng BN-xxx): ",
+                    suggestedMaBN);
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) {
                 input = suggestedMaBN;
             }
 
             if (!Validator.isValidMaBenhNhan(input)) {
-                System.out.println("Mã bệnh nhân không đúng định dạng (phải bắt đầu bằng 'BN-' và theo sau là số, ví dụ: " + suggestedMaBN + "). Vui lòng nhập lại!");
+                System.out
+                        .println("Mã bệnh nhân không đúng định dạng (phải bắt đầu bằng 'BN-' và theo sau là số, ví dụ: "
+                                + suggestedMaBN + "). Vui lòng nhập lại!");
                 continue;
             }
             maBenhNhan = input;
             break;
         }
 
-        // 4. Tên bệnh nhân
         String tenBenhNhan;
         while (true) {
             System.out.print("Nhập tên bệnh nhân: ");
@@ -134,10 +122,10 @@ public class BenhAnView {
             if (Validator.isValidTen(tenBenhNhan)) {
                 break;
             }
-            System.out.println("Tên bệnh nhân không hợp lệ (không được để trống và chỉ chứa chữ cái). Vui lòng nhập lại!");
+            System.out.println(
+                    "Tên bệnh nhân không hợp lệ (không được để trống và chỉ chứa chữ cái). Vui lòng nhập lại!");
         }
 
-        // 5. Ngày nhập viện
         String ngayNhapVien;
         while (true) {
             System.out.print("Nhập ngày nhập viện (định dạng dd/MM/yyyy): ");
@@ -145,10 +133,10 @@ public class BenhAnView {
             if (DateUtil.isValidDate(ngayNhapVien)) {
                 break;
             }
-            System.out.println("Ngày nhập viện không hợp lệ! Vui lòng nhập đúng định dạng ngày dd/MM/yyyy (ví dụ: 01/10/2026).");
+            System.out.println(
+                    "Ngày nhập viện không hợp lệ! Vui lòng nhập đúng định dạng ngày dd/MM/yyyy (ví dụ: 01/10/2026).");
         }
 
-        // 6. Ngày ra viện: >= ngày nhập viện
         String ngayRaVien;
         while (true) {
             System.out.print("Nhập ngày ra viện (định dạng dd/MM/yyyy): ");
@@ -158,13 +146,13 @@ public class BenhAnView {
                 continue;
             }
             if (!DateUtil.isEndAfterOrEqualStart(ngayNhapVien, ngayRaVien)) {
-                System.out.println("Ngày ra viện phải lớn hơn hoặc bằng ngày nhập viện (" + ngayNhapVien + "). Vui lòng nhập lại!");
+                System.out.println("Ngày ra viện phải lớn hơn hoặc bằng ngày nhập viện (" + ngayNhapVien
+                        + "). Vui lòng nhập lại!");
                 continue;
             }
             break;
         }
 
-        // 7. Lý do nhập viện
         String lyDoNhapVien;
         while (true) {
             System.out.print("Nhập lý do nhập viện: ");
@@ -175,9 +163,8 @@ public class BenhAnView {
             System.out.println("Lý do nhập viện không được để trống. Vui lòng nhập lại!");
         }
 
-        // Thuộc tính riêng cho từng loại bệnh án
         if (typeChoice == 1) {
-            // Bệnh án thường: Phí nằm viện
+
             double phiNamVien;
             while (true) {
                 System.out.print("Nhập phí nằm viện (VNĐ > 0): ");
@@ -196,7 +183,7 @@ public class BenhAnView {
                     ngayNhapVien, ngayRaVien, lyDoNhapVien, phiNamVien);
 
         } else {
-            // Bệnh án VIP: Loại VIP, Thời hạn VIP
+
             System.out.println("Chọn gói VIP:");
             System.out.println("1.\tVIP I");
             System.out.println("2.\tVIP II");
@@ -233,17 +220,11 @@ public class BenhAnView {
         }
     }
 
-    /**
-     * Nhận mã bệnh án cần xoá.
-     */
     public String inputMaBenhAnToDelete() {
         System.out.print("Nhập mã bệnh án cần xoá: ");
         return scanner.nextLine().trim();
     }
 
-    /**
-     * Xác nhận xoá bệnh án.
-     */
     public boolean confirmDelete(BenhAn benhAn) {
         System.out.println("\nThông tin bệnh án cần xoá:");
         System.out.println(benhAn);
@@ -252,11 +233,9 @@ public class BenhAnView {
         return answer.equals("yes") || answer.equals("y");
     }
 
-    /**
-     * Hiển thị danh sách toàn bộ bệnh án.
-     */
     public void displayMedicalRecords(ArrayList<BenhAn> list) {
-        System.out.println("\n========================================== DANH SÁCH BỆNH ÁN ==========================================");
+        System.out.println(
+                "\n========================================== DANH SÁCH BỆNH ÁN ==========================================");
         if (list == null || list.isEmpty()) {
             System.out.println("Danh sách bệnh án hiện đang trống.");
         } else {
@@ -265,12 +244,10 @@ public class BenhAnView {
             }
             System.out.printf("Tổng số bệnh án: %d\n", list.size());
         }
-        System.out.println("=======================================================================================================\n");
+        System.out.println(
+                "=======================================================================================================\n");
     }
 
-    /**
-     * Hiển thị thông báo.
-     */
     public void showMessage(String message) {
         System.out.println(message);
     }

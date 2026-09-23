@@ -1,19 +1,16 @@
 package model;
 
-/**
- * Lớp đại diện cho Bệnh án VIP, kế thừa từ BenhAn.
- */
 public class BenhAnVip extends BenhAn {
-    private String loaiVip;     // "VIP I", "VIP II", "VIP III"
-    private String thoiHanVip;  // Định dạng dd/MM/yyyy
+    private String loaiVip;
+    private String thoiHanVip;
 
     public BenhAnVip() {
         super();
     }
 
     public BenhAnVip(int soThuTu, String maBenhAn, String maBenhNhan, String tenBenhNhan,
-                     String ngayNhapVien, String ngayRaVien, String lyDoNhapVien,
-                     String loaiVip, String thoiHanVip) {
+            String ngayNhapVien, String ngayRaVien, String lyDoNhapVien,
+            String loaiVip, String thoiHanVip) {
         super(soThuTu, maBenhAn, maBenhNhan, tenBenhNhan, ngayNhapVien, ngayRaVien, lyDoNhapVien);
         this.loaiVip = loaiVip;
         this.thoiHanVip = thoiHanVip;
@@ -46,8 +43,7 @@ public class BenhAnVip extends BenhAn {
                 getNgayRaVien(),
                 getLyDoNhapVien(),
                 loaiVip,
-                thoiHanVip
-        );
+                thoiHanVip);
     }
 
     @Override

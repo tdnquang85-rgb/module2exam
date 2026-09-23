@@ -8,9 +8,6 @@ import view.BenhAnView;
 
 import java.util.ArrayList;
 
-/**
- * Controller điều hướng luồng hoạt động giữa View và Service.
- */
 public class BenhAnController {
     private final IBenhAnService service;
     private final BenhAnView view;
@@ -25,9 +22,6 @@ public class BenhAnController {
         this.view = view;
     }
 
-    /**
-     * Bắt đầu vòng lặp điều khiển ứng dụng.
-     */
     public void run() {
         boolean running = true;
         while (running) {
@@ -55,9 +49,6 @@ public class BenhAnController {
         }
     }
 
-    /**
-     * Chức năng 1: Thêm mới bệnh án.
-     */
     private void handleAddNew() {
         BenhAn benhAn = view.inputBenhAn(service);
         if (benhAn != null) {
@@ -70,9 +61,6 @@ public class BenhAnController {
         }
     }
 
-    /**
-     * Chức năng 2: Xoá bệnh án.
-     */
     private void handleDelete() {
         String maBenhAn = view.inputMaBenhAnToDelete();
         BenhAn benhAn = service.findByMaBenhAn(maBenhAn);
@@ -97,9 +85,6 @@ public class BenhAnController {
         }
     }
 
-    /**
-     * Chức năng 3: Xem danh sách các bệnh án.
-     */
     private void handleDisplayAll() {
         ArrayList<BenhAn> list = service.getAll();
         view.displayMedicalRecords(list);

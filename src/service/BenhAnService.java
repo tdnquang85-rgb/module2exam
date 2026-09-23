@@ -7,9 +7,6 @@ import repository.IBenhAnRepository;
 
 import java.util.ArrayList;
 
-/**
- * Lớp triển khai IBenhAnService xử lý các logic nghiệp vụ cho Bệnh án.
- */
 public class BenhAnService implements IBenhAnService {
     private final IBenhAnRepository repository;
 

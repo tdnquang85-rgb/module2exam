@@ -8,10 +8,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-/**
- * Lớp triển khai IBenhAnRepository để lưu trữ và truy xuất bệnh án
- * từ file CSV duy nhất data/medical_records.csv.
- */
 public class BenhAnRepository implements IBenhAnRepository {
     private static final String FILE_PATH = "data/medical_records.csv";
 
@@ -19,9 +15,6 @@ public class BenhAnRepository implements IBenhAnRepository {
         initFile();
     }
 
-    /**
-     * Khởi tạo file và thư mục data nếu chưa tồn tại.
-     */
     private void initFile() {
         File file = new File(FILE_PATH);
         File parentDir = file.getParentFile();
@@ -67,16 +60,14 @@ public class BenhAnRepository implements IBenhAnRepository {
                         // Bệnh án thường
                         double phiNamVien = Double.parseDouble(parts[7].trim());
                         BenhAnThuong benhAnThuong = new BenhAnThuong(
-                                stt, maBA, maBN, tenBN, ngayNhap, ngayRa, lyDo, phiNamVien
-                        );
+                                stt, maBA, maBN, tenBN, ngayNhap, ngayRa, lyDo, phiNamVien);
                         list.add(benhAnThuong);
                     } else if (parts.length == 9) {
                         // Bệnh án VIP
                         String loaiVip = parts[7].trim();
                         String thoiHanVip = parts[8].trim();
                         BenhAnVip benhAnVip = new BenhAnVip(
-                                stt, maBA, maBN, tenBN, ngayNhap, ngayRa, lyDo, loaiVip, thoiHanVip
-                        );
+                                stt, maBA, maBN, tenBN, ngayNhap, ngayRa, lyDo, loaiVip, thoiHanVip);
                         list.add(benhAnVip);
                     }
                 } catch (Exception ex) {
