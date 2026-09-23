@@ -74,7 +74,7 @@ public class BenhAnController {
             boolean success = service.delete(maBenhAn);
             if (success) {
                 view.showMessage("\n==> Xoá bệnh án thành công!");
-                // Hiển thị lại danh sách sau khi xoá
+
                 ArrayList<BenhAn> remaining = service.getAll();
                 view.displayMedicalRecords(remaining);
             } else {
